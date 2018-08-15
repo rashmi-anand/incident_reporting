@@ -1,0 +1,33 @@
+
+<div class="row">
+	<h2><%= @incident.school.name %></h2>
+	<div>Incident Reporting Page</div>
+</div>
+
+<br/>
+<br/>
+<div class="row">
+	<%= form_for @incident, html: { multipart: true } do |f| %>
+		<%= f.hidden_field :is_quick, value: f.object.is_quick %>
+		<%= f.hidden_field :is_anonymous, value: f.object.is_anonymous %>
+
+		<div class="form-group">
+			<%= f.label "Describe Issue/Incident"%>
+			<%= f.text_area :description, class: 'form-control'%>
+		</div>
+
+		<%= f.fields_for :incident_proofs do |p| %>
+     	<div class="form-group">
+       	<%= p.label "Add Photos" %><br>
+       	<%= p.file_field :avatar, :multiple => true, name: "incident_proofs[avatar][]" %>
+     	</div>
+   	<% end %>
+
+
+		<div>
+			<%= f.submit "Submit", class: "btn btn-primary"%>
+			or
+			<%= link_to "Submit Detailed Report", new_incident_path%>
+		</div>
+	<% end %>
+</div>

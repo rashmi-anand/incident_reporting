@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>IncidentReporting</title>   
+    
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application' %>
+  </head>
+
+  <body>
+    <%= yield :scripts %>
+    <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
+      <%= render partial: 'shared/flash_message' %>
+      <%= yield %>
+    </div>
+  </body>
+</html>

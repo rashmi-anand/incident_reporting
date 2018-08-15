@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  student: one
+  description: MyText
+  incident_type: MyString
+  reportee_name: MyString
+  reportee_email_phone: MyString
+
+two:
+  student: two
+  description: MyText
+  incident_type: MyString
+  reportee_name: MyString
+  reportee_email_phone: MyString

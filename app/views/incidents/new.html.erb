@@ -1,0 +1,103 @@
+
+<%= content_for :scripts do %>
+	<%= javascript_include_tag 'detailed_incident' %>
+<% end %>
+
+<div class="row">
+	<h2><%= @incident.school.name %></h2>
+	<div>Detailed Incident Reporting Page</div>
+</div>
+
+<br/>
+<br/>
+<div class="row">
+	<%= form_for @incident, html: { multipart: true } do |f| %>
+		<%= f.hidden_field :is_quick, value: f.object.is_quick %>
+		<%= f.hidden_field :is_anonymous, value: f.object.is_anonymous %>
+
+		<div class="form-group">
+			<%= f.label "Type of Incident"%>
+			<%= f.select :incident_type, Incident::INCIDENT_TYPES, {},{multiple: true, class: 'form-control'}%>
+		</div>
+
+		<div class="form-group">
+			<%= f.check_box :is_anonymous %>			
+			<%= f.label "Report Anonymously"%>
+		</div>
+
+		<div id="personal-info">
+			<div class="row">
+				<div class="form-group col-md-5">
+					<%= f.label "Your Name"%>
+					<%= f.text_field :reportee_name, class: 'form-control'%>
+				</div>
+				
+				<div class="form-group col-md-5 col-md-offset-2">
+					<%= f.label "Your Email"%>
+					<%= f.email_field :reportee_email, class: 'form-control'%>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="form-group col-md-5">
+					<%= f.label "Your Phone"%>
+					<%= f.telephone_field :reportee_phone, class: 'form-control'%>
+				</div>
+
+				<div class="form-group col-md-5 col-md-offset-2">
+					<%= f.label "Your Role"%>
+					<%= f.select :reportee_role, Incident::REPORTEE_ROLE, {prompt: "Please Select "}, {class: 'form-control'}%>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<%= f.label "People Involved"%>
+			<%= f.text_area :defaulter_details, placeholder: "Name and other details of people involved (student, teacher, staff, parent, grade level)", class: 'form-control'%>
+		</div>
+
+		<div class="form-group">
+			<%= f.label "Other observers if any"%>
+			<%= f.text_area :witness_details, placeholder: "Name and details", class: 'form-control'%>
+		</div>
+
+		<div class="row">
+			<div class="form-group col-md-5 col-sd-6">
+				<%= f.label "Date/Time Observed"%>
+				<div class='input-group date' id='datetimepicker1'>
+	          <%= f.text_field :incident_time,  class: "form-control"%>
+	          <span class="input-group-addon">
+	              <span class="glyphicon glyphicon-calendar"></span>
+	          </span>
+	      </div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<%= f.label "Location"%>
+			<%= f.select :location, Incident::INCIDENT_LOCATION, {prompt: "Please Select "}, {class: 'form-control'}%>
+		</div>
+
+		<div class="form-group">
+			<%= f.label "Incident Description" %>
+			<%= f.text_area :description, placeholder: "Describe incident in as much detail as possible", class: 'form-control'%>
+		</div>
+
+
+		<%= f.fields_for :incident_proofs do |p| %>
+     	<div class="form-group">
+       	<%= p.label "Add Photos" %><br>
+       	<%= p.file_field :avatar, :multiple => true, name: "incident_proofs[avatar][]" %>
+     	</div>
+   	<% end %>
+
+
+		<div>
+			<%= f.submit "Submit", class: "btn btn-primary"%>
+			or
+			<%= link_to "Submit Quick Report", root_path%>
+		</div>
+	<% end %>
+</div>
+<br/>
+<br/>

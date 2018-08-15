@@ -1,0 +1,2 @@
+module IncidentProofsHelper
+end
